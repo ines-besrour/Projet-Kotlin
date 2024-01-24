@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile.R
+import com.example.mobile.core.SharedPreferencesManager
 import com.example.mobile.databinding.FragmentHomeBinding
 import com.example.mobile.mvvm.HomeViewModel
 import com.example.mobile.utils.adapter.SetOnTodoClickListener
@@ -68,6 +69,11 @@ class HomeFragment : Fragment() {
 
         binding.addTaskBtn.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_addTodo)        }
+
+        binding.logout.setOnClickListener{
+            SharedPreferencesManager.clearSharedPref()
+            navController.navigate(R.id.action_homeFragment_to_signInFragment)
+        }
     }
 
 

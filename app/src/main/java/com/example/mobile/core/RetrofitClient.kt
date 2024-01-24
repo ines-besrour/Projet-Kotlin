@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
 
 
-    private const val BASE_URL = "https://4c18-197-26-245-109.ngrok-free.app/"
+    private const val BASE_URL = "https://c6c3-197-26-245-109.ngrok-free.app/"
 
     private val okHttpClient = OkHttpClient()
         .newBuilder()
@@ -66,6 +66,11 @@ object SharedPreferencesManager {
 
     fun getString(key: String, defaultValue: String): String {
         return sharedPreferences.getString(key, defaultValue) ?: defaultValue
+    }
+
+    fun clearSharedPref(){
+        val editor= sharedPreferences.edit().clear()
+        editor.apply()
     }
 
 }

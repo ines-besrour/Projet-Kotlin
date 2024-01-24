@@ -31,13 +31,13 @@ class AddTodo : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            todoId = it.getString("todoId")?.toInt()
-            todoNameParam =it.getString("todoName")
-            todoDescriptionParam =it.getString("todoDescription")
-            todoStatusParam =it.getString("todoStatus")
-
-        }
+//        arguments?.let {
+//            todoId = it.getString("todoId")?.toInt()
+//            todoNameParam =it.getString("todoName")
+//            todoDescriptionParam =it.getString("todoDescription")
+//            todoStatusParam =it.getString("todoStatus")
+//
+//        }
     }
 
     override fun onCreateView(
@@ -51,12 +51,12 @@ class AddTodo : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init(view)
-        if (isUpdatePage()){
-            binding.textView2.text="Update Todo"
-            binding.todoName.setText(todoNameParam)
-            binding.description.setText(todoDescriptionParam)
-            // Todo :: initialize spinner
-        }
+//        if (isUpdatePage()){
+//            binding.textView2.text="Update Todo"
+//            binding.todoName.setText(todoNameParam)
+//            binding.description.setText(todoDescriptionParam)
+//            // Todo :: initialize spinner
+//        }
 
         todosViewModel.getAddedTodo().observe(this.viewLifecycleOwner){
             if (it != null){
@@ -82,31 +82,20 @@ class AddTodo : Fragment() {
             val description = binding.description.toString()
             // Todo :: get Todos
             if(name.isNotEmpty() && description.isNotEmpty()){
-                if(isUpdatePage()){
-                    todosViewModel.updateTodo(todoId!!,name,description,"")
-                }
-                todosViewModel.addTodo(name,description)
-            }
-        }
-
-        binding.submitButton.setOnClickListener {
-            val name = binding.todoName.toString()
-            val description = binding.description.toString()
-            // Todo :: get Todos
-            if(name.isNotEmpty() && description.isNotEmpty()){
-                if(isUpdatePage()){
-                    todosViewModel.updateTodo(todoId!!,name,description,"")
-                }
+//                if(isUpdatePage()){
+//                    todosViewModel.updateTodo(todoId!!,name,description,"")
+//                }
                 todosViewModel.addTodo(name,description)
             }
         }
 
 
+
     }
 
-    private fun isUpdatePage():Boolean{
-        return todoId != null && todoNameParam != null && todoDescriptionParam != null && todoStatusParam !=null
-    }
+//    private fun isUpdatePage():Boolean{
+//        return todoId != null && todoNameParam != null && todoDescriptionParam != null && todoStatusParam !=null
+//    }
 
 
     private fun init(view: View) {

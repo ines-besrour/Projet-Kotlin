@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_homeFragment_to_todoDetail"
             app:destination="@id/todoDetail" />
+        <action
+            android:id="@+id/action_homeFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTodo"
