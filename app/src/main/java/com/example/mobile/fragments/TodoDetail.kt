@@ -35,8 +35,7 @@ class TodoDetail : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding= FragmentTodoDetailBinding.inflate(inflater, container, false)
-        Log.d("Test","Test From On Create View")
+        binding= FragmentTodoDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,7 +43,6 @@ class TodoDetail : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init(view)
         showLoading()
-        Log.d("Test","Test From On View Created")
         todoDetailViewModel.getTodoById(todoId)
 
         todoDetailViewModel.getTodo().observe(this.viewLifecycleOwner){

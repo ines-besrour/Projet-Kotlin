@@ -24,9 +24,10 @@ class TodosViewModel: ViewModel() {
             .enqueue(object : Callback<Todo> {
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
-                        addedTodo.value = response.body()
                         error.value=null
+                        addedTodo.value = response.body()
                     }else{
+                        Log.d("Error add",response.errorBody()!!.string())
                         addTodoError(response.errorBody().toString())
                     }
 
@@ -44,12 +45,11 @@ class TodosViewModel: ViewModel() {
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if(response.isSuccessful){
-                        updateTodo.value = true
                         error.value=null
+                        updateTodo.value = true
                     }else{
                         updateError(response.errorBody().toString())
                     }
-
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {

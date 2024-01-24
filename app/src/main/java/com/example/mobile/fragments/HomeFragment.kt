@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        Log.d("Home binding",binding.toString())
         return binding.root
     }
 
@@ -68,7 +69,8 @@ class HomeFragment : Fragment() {
         })
 
         binding.addTaskBtn.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_addTodo)        }
+            navController.navigate(R.id.action_homeFragment_to_addTodo)
+        }
 
         binding.logout.setOnClickListener{
             SharedPreferencesManager.clearSharedPref()

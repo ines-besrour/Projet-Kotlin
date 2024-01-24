@@ -1,6 +1,7 @@
 package com.example.mobile.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile.R
-import com.example.mobile.core.models.Todo
 import com.example.mobile.databinding.FragmentAddTodoBinding
-import com.example.mobile.databinding.FragmentHomeBinding
 import com.example.mobile.mvvm.TodosViewModel
-import com.example.mobile.utils.adapter.TaskAdapter
 
 
 class AddTodo : Fragment() {
@@ -31,32 +28,35 @@ class AddTodo : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            todoId = it.getString("todoId")?.toInt()
-//            todoNameParam =it.getString("todoName")
-//            todoDescriptionParam =it.getString("todoDescription")
-//            todoStatusParam =it.getString("todoStatus")
-//
-//        }
+        arguments?.let {
+            todoId = it.getString("todoId")?.toInt()
+            todoNameParam =it.getString("todoName")
+            todoDescriptionParam =it.getString("todoDescription")
+            todoStatusParam =it.getString("todoStatus")
+
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding= FragmentHomeBinding.inflate(inflater, container, false)
+        binding= FragmentAddTodoBinding.inflate(inflater, container, false)
+        Log.d("Home binding",binding.toString())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("ttt","on view created")
+
         init(view)
-//        if (isUpdatePage()){
-//            binding.textView2.text="Update Todo"
-//            binding.todoName.setText(todoNameParam)
-//            binding.description.setText(todoDescriptionParam)
-//            // Todo :: initialize spinner
-//        }
+        if (isUpdatePage()){
+            binding.textView2.text="Update Todo"
+            binding.todoName.setText(todoNameParam)
+            binding.description.setText(todoDescriptionParam)
+            // Todo :: initialize spinner
+        }
 
         todosViewModel.getAddedTodo().observe(this.viewLifecycleOwner){
             if (it != null){
@@ -78,13 +78,13 @@ class AddTodo : Fragment() {
 
 
         binding.submitButton.setOnClickListener {
-            val name = binding.todoName.toString()
-            val description = binding.description.toString()
+            val name = binding.todoName.text.toString()
+            val description = binding.description.text.toString()
             // Todo :: get Todos
             if(name.isNotEmpty() && description.isNotEmpty()){
-//                if(isUpdatePage()){
-//                    todosViewModel.updateTodo(todoId!!,name,description,"")
-//                }
+                if(isUpdatePage()){
+                    todosViewModel.updateTodo(todoId!!,name,description,"")
+                }
                 todosViewModel.addTodo(name,description)
             }
         }
@@ -93,13 +93,18 @@ class AddTodo : Fragment() {
 
     }
 
-//    private fun isUpdatePage():Boolean{
-//        return todoId != null && todoNameParam != null && todoDescriptionParam != null && todoStatusParam !=null
-//    }
+    private fun isUpdatePage():Boolean{
+        return todoId != null && todoNameParam != null && todoDescriptionParam != null && todoStatusParam !=null
+    }
 
 
     private fun init(view: View) {
         navController = Navigation.findNavController(view)
+    }
+
+    override fun onDestroy() {
+        Log.d("Add TO DO","Destroyed")
+        super.onDestroy()
     }
 
 }

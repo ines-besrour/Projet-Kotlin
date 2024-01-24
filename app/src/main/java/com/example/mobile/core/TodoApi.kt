@@ -22,7 +22,7 @@ interface TodoApi {
     @POST("/v2/todo/add")
     fun createTodo(@Body todo: CreateTodoDto): Call<Todo>
 
-    @DELETE("/v2/todo/{id}")
+    @DELETE("/v2/todo/delete/{id}")
     fun deleteTodo(@Path("id") id : Int): Call<Void>
 
     @PATCH("/v2/todo/update/{id}")
