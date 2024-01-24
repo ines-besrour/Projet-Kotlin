@@ -13,21 +13,21 @@ import retrofit2.http.Path
 
 interface TodoApi {
 
-    @GET("/todo")
+    @GET("/v2/todo")
     fun getTodos(): Call<List<Todo>>
 
 
-    @GET("/todo/{id}")
+    @GET("/v2/todo/{id}")
     fun getTodoById(@Path("id") id : Int): Call<Todo>
 
-    @POST("/todo/add")
+    @POST("/v2/todo/add")
     fun createTodo(@Body todo: CreateTodoDto): Call<Todo>
 
-    @DELETE("/todo/{id}")
+    @DELETE("/v2/todo/{id}")
     fun deleteTodo(@Path("id") id : Int): Call<Void>
 
 
-    @PATCH("/todo/update/{id}")
+    @PATCH("/v2/todo/update/{id}")
     fun updateTodo(@Path("id") id : Int,@Body updateTodoDto: UpdateTodo): Call<Void>
 
 

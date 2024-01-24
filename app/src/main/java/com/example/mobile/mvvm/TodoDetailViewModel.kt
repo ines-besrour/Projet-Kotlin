@@ -12,75 +12,77 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TodosViewModel: ViewModel() {
+class TodoDetailViewModel:ViewModel() {
 
-    private var addedTodo = MutableLiveData<Todo?>()
+    private var todo = MutableLiveData<Todo?>()
     private var error = MutableLiveData<String?>()
-    private var updateTodo = MutableLiveData<Boolean>()
+    private var deletedTodo = MutableLiveData<Void?>()
 
 
-    fun addTodo(name:String,description : String){
-        RetrofitClient.todoService.createTodo(CreateTodoDto(name, description))
+    fun getTodoById(id:Int){
+        RetrofitClient.todoService.getTodoById(id)
             .enqueue(object : Callback<Todo> {
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
-                        addedTodo.value = response.body()
+                        todo.value = response.body()
                         error.value=null
                     }else{
-                        addTodoError(response.errorBody().toString())
+                        getTodoError(response.errorBody().toString())
                     }
 
                 }
 
                 override fun onFailure(call: Call<Todo>, t: Throwable) {
-                    addTodoError(t.message.toString())
+                    getTodoError(t.message.toString())
                     Log.d("Add Todo Failed",t.message.toString())
                 }
             })
     }
 
-    fun updateTodo(id:Int,name:String?,description : String?,status:String?){
-        RetrofitClient.todoService.updateTodo(id, UpdateTodo(name,description,status))
+    fun deleteTodoById(id:Int){
+        RetrofitClient.todoService.deleteTodo(id)
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if(response.isSuccessful){
-                        updateTodo.value = true
+                        deletedTodo.value = response.body()
                         error.value=null
                     }else{
-                        updateError(response.errorBody().toString())
+                        deleteError(response.errorBody().toString())
                     }
 
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
-                    updateError(t.message.toString())
+                    deleteError(t.message.toString())
                     Log.d("Add Todo Failed",t.message.toString())
                 }
             })
     }
 
 
-    fun addTodoError(msg:String){
+    fun getTodoError(msg:String){
         error.value=msg
-        addedTodo.value=null
+        todo.value=null
     }
 
 
-    fun updateError(msg:String){
+    fun deleteError(msg:String){
         error.value=msg
-        updateTodo.value=false
+        deletedTodo.value=null
     }
 
-    fun getError():LiveData<String?>{
+    fun getError(): LiveData<String?> {
         return error
     }
 
-    fun getAddedTodo():LiveData<Todo?>{
-        return addedTodo
+    fun getTodo(): LiveData<Todo?> {
+        return todo
     }
 
-    fun getUpdatedTodo():LiveData<Boolean>{
-        return updateTodo
+    fun getDeletedTodo(): LiveData<Void?> {
+        return deletedTodo
     }
+
+
 
 }

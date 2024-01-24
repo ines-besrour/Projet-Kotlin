@@ -4,15 +4,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile.core.models.Todo
 import com.example.mobile.databinding.EachTodoItemBinding
 import com.example.mobile.utils.model.ToDoData
 
-class TaskAdapter(private val list: MutableList<ToDoData>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    private  val TAG = "TaskAdapter"
-    private var listener:TaskAdapterInterface? = null
-    fun setListener(listener:TaskAdapterInterface){
-        this.listener = listener
+    private var todos: List<Todo> = ArrayList()
+    private lateinit var setOnTodoClickListener: SetOnTodoClickListener
+
+
+    fun setTodoList(todos:List<Todo>){
+        this.todos=todos
+        notifyDataSetChanged()
+    }
+
+    fun setOnTodoClickListener(setOnMealClickListener: SetOnTodoClickListener) {
+        this.setOnTodoClickListener = setOnMealClickListener
     }
     class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,29 +31,22 @@ class TaskAdapter(private val list: MutableList<ToDoData>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        with(holder) {
-            with(list[position]) {
-                binding.todoTask.text = this.task
+        holder.binding.apply {
+            todoTask.text=todos[position].name
+        }
 
-                Log.d(TAG, "onBindViewHolder: "+this)
-                binding.editTask.setOnClickListener {
-                    listener?.onEditItemClicked(this , position)
-                }
-
-                binding.deleteTask.setOnClickListener {
-                    listener?.onDeleteItemClicked(this , position)
-                }
-            }
+        holder.itemView.setOnClickListener {
+            setOnTodoClickListener.setOnClickListener(todos[position].id)
         }
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return todos.size
     }
 
-    interface TaskAdapterInterface{
-        fun onDeleteItemClicked(toDoData: ToDoData , position : Int)
-        fun onEditItemClicked(toDoData: ToDoData , position: Int)
-    }
 
+}
+
+interface SetOnTodoClickListener {
+    fun setOnClickListener(id: Int)
 }

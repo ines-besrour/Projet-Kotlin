@@ -57,10 +57,45 @@
         <action
             android:id="@+id/action_homeFragment_to_addTodo"
             app:destination="@id/addTodo" />
+        <action
+            android:id="@+id/action_homeFragment_to_todoDetail"
+            app:destination="@id/todoDetail" />
     </fragment>
     <fragment
         android:id="@+id/addTodo"
         android:name="com.example.mobile.fragments.AddTodo"
         android:label="fragment_add_todo"
-        tools:layout="@layout/fragment_add_todo" />
+        tools:layout="@layout/fragment_add_todo" >
+        <argument
+            android:name="todoId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addTodo_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_addTodo_to_todoDetail"
+            app:destination="@id/todoDetail" />
+        <argument
+            android:name="todoName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="todoDescrpition"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="todoStatus"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/todoDetail"
+        android:name="com.example.mobile.fragments.TodoDetail"
+        android:label="fragment_todo_detail"
+        tools:layout="@layout/fragment_todo_detail" >
+        <argument
+            android:name="todoId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

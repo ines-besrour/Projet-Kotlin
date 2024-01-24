@@ -5,28 +5,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile.R
+import com.example.mobile.core.models.Todo
+import com.example.mobile.databinding.FragmentAddTodoBinding
+import com.example.mobile.databinding.FragmentHomeBinding
+import com.example.mobile.mvvm.TodosViewModel
+import com.example.mobile.utils.adapter.TaskAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddTodo.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddTodo : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var navController: NavController
+    private lateinit var binding : FragmentAddTodoBinding
+    private var todoId: Int? = null
+    private var todoNameParam: String? = null
+    private var todoDescriptionParam: String? = null
+    private var todoStatusParam: String? = null
+    private val todosViewModel: TodosViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            todoId = it.getString("todoId")?.toInt()
+            todoNameParam =it.getString("todoName")
+            todoDescriptionParam =it.getString("todoDescription")
+            todoStatusParam =it.getString("todoStatus")
+
         }
     }
 
@@ -34,27 +44,61 @@ class AddTodo : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_todo, container, false)
+        val binding= FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddTodo.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddTodo().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init(view)
+        if (isUpdatePage()){
+            binding.textView2.text="Update Todo"
+            binding.todoName.setText(todoNameParam)
+            binding.description.setText(todoDescriptionParam)
+            // Todo :: initialize spinner
+        }
+
+        todosViewModel.getAddedTodo().observe(this.viewLifecycleOwner){
+            if (it != null){
+                navController.navigate(R.id.action_addTodo_to_homeFragment)
             }
+        }
+
+        todosViewModel.getUpdatedTodo().observe(this.viewLifecycleOwner){
+            if (it ==true){
+                navController.navigate(R.id.action_addTodo_to_todoDetail)
+            }
+        }
+
+        todosViewModel.getError().observe(this.viewLifecycleOwner){
+            if (it != null){
+                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+            }
+        }
+
+
+        binding.submitButton.setOnClickListener {
+            val name = binding.todoName.toString()
+            val description = binding.description.toString()
+            // Todo :: get Todos
+            if(name.isNotEmpty() && description.isNotEmpty()){
+                if(isUpdatePage()){
+                    todosViewModel.updateTodo(todoId!!,name,description,"")
+                }
+                todosViewModel.addTodo(name,description)
+            }
+        }
+
+
     }
+
+    private fun isUpdatePage():Boolean{
+        return todoId != null && todoNameParam != null && todoDescriptionParam != null && todoStatusParam !=null
+    }
+
+
+    private fun init(view: View) {
+        navController = Navigation.findNavController(view)
+    }
+
 }

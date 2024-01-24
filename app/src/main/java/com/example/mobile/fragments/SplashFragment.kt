@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.mobile.R
+import com.example.mobile.core.SharedPreferencesManager
 
 
 class SplashFragment : Fragment() {
@@ -30,7 +31,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init(view)
-
+        SharedPreferencesManager.init(requireContext())
 
         val handler = Handler(Looper.myLooper()!!)
         handler.postDelayed({
