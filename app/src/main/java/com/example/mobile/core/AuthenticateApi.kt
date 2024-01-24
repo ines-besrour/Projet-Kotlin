@@ -12,7 +12,6 @@ interface AuthenticateApi {
     @POST("/user/login")
     fun login(@Body authDto : AuthenticateTodo): Call<LoginDto>
 
-
     @POST("/user/sign-up")
     fun signUp(@Body authDto : AuthenticateTodo): Call<Void>
 

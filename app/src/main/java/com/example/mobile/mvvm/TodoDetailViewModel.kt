@@ -18,7 +18,6 @@ class TodoDetailViewModel:ViewModel() {
     private var error = MutableLiveData<String?>()
     private var deletedTodo = MutableLiveData<Void?>()
 
-
     fun getTodoById(id:Int){
         RetrofitClient.todoService.getTodoById(id)
             .enqueue(object : Callback<Todo> {

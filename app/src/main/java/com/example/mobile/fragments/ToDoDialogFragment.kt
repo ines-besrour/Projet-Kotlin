@@ -17,7 +17,6 @@ class ToDoDialogFragment : DialogFragment() {
     private var listener : OnDialogNextBtnClickListener? = null
     private var toDoData: ToDoData? = null
 
-
     fun setListener(listener: OnDialogNextBtnClickListener) {
         this.listener = listener
     }
