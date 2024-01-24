@@ -89,6 +89,18 @@ class AddTodo : Fragment() {
             }
         }
 
+        binding.submitButton.setOnClickListener {
+            val name = binding.todoName.toString()
+            val description = binding.description.toString()
+            // Todo :: get Todos
+            if(name.isNotEmpty() && description.isNotEmpty()){
+                if(isUpdatePage()){
+                    todosViewModel.updateTodo(todoId!!,name,description,"")
+                }
+                todosViewModel.addTodo(name,description)
+            }
+        }
+
 
     }
 

@@ -16,7 +16,7 @@ class TodoDetailViewModel:ViewModel() {
 
     private var todo = MutableLiveData<Todo?>()
     private var error = MutableLiveData<String?>()
-    private var deletedTodo = MutableLiveData<Void?>()
+    private var deletedTodo = MutableLiveData<Boolean>()
 
 
     fun getTodoById(id:Int){
@@ -44,7 +44,7 @@ class TodoDetailViewModel:ViewModel() {
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if(response.isSuccessful){
-                        deletedTodo.value = response.body()
+                        deletedTodo.value = true
                         error.value=null
                     }else{
                         deleteError(response.errorBody().toString())
@@ -68,7 +68,7 @@ class TodoDetailViewModel:ViewModel() {
 
     fun deleteError(msg:String){
         error.value=msg
-        deletedTodo.value=null
+        deletedTodo.value=false
     }
 
     fun getError(): LiveData<String?> {
@@ -79,7 +79,7 @@ class TodoDetailViewModel:ViewModel() {
         return todo
     }
 
-    fun getDeletedTodo(): LiveData<Void?> {
+    fun getDeletedTodo(): LiveData<Boolean> {
         return deletedTodo
     }
 
