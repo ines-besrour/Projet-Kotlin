@@ -16,7 +16,6 @@ interface TodoApi {
     @GET("/v2/todo")
     fun getTodos(): Call<List<Todo>>
 
-
     @GET("/v2/todo/{id}")
     fun getTodoById(@Path("id") id : Int): Call<Todo>
 
@@ -26,9 +25,7 @@ interface TodoApi {
     @DELETE("/v2/todo/{id}")
     fun deleteTodo(@Path("id") id : Int): Call<Void>
 
-
     @PATCH("/v2/todo/update/{id}")
     fun updateTodo(@Path("id") id : Int,@Body updateTodoDto: UpdateTodo): Call<Void>
-
 
 }
