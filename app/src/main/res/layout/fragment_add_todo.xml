@@ -4,33 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SignInFragment">
-
+    tools:context=".fragments.AddTodo">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:scaleType="fitXY"
         android:src="@drawable/design_one"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView9"
         android:layout_width="60dp"
         android:layout_height="130dp"
         android:rotation="180"
         android:scaleType="fitXY"
         android:src="@drawable/ellipse_one"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView10"
         android:layout_width="0dp"
         android:layout_height="210dp"
         android:layout_marginStart="12dp"
@@ -41,33 +39,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/inter_extra_bold"
-        android:text="Sign In"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="-64dp"
+        android:layout_marginTop="4dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView2">
+        app:layout_constraintTop_toTopOf="@+id/imageView9">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -80,15 +63,14 @@
 
 
             <EditText
-                android:id="@+id/emailEt"
+                android:id="@+id/todoName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingTop="15dp"
                 android:background="@color/white"
-                android:hint="@string/enter_your_email"
+                android:hint="Todo Name"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp"
-                />
+                android:paddingTop="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -99,91 +81,92 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="44dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardView1">
+        app:layout_constraintTop_toBottomOf="@+id/cardView1">
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
+            >
 
             <EditText
-                android:id="@+id/passEt"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="15dp"
                 android:background="@color/white"
-                android:hint="@string/enter_your_pass"
-                android:inputType="textPassword"
-                android:paddingStart="12dp" />
-
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:paddingStart="12dp"
+                android:paddingTop="15dp"
+                android:lines="7"
+                android:gravity="top|start"
+                tools:layout_editor_absoluteX="27dp"
+                tools:layout_editor_absoluteY="405dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/inter_extra_bold"
+        android:text="Add To Do"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/nextBtn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Todo Name"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView1"
+        app:layout_constraintStart_toStartOf="@+id/cardView1" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:src="@drawable/btn"
-        app:layout_constraintEnd_toEndOf="@id/cardView2"
-        app:layout_constraintTop_toBottomOf="@id/cardView2" />
-
-
-    <TextView
-        android:id="@+id/textview32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/inter_regular"
-        android:text="Not Registered Yet ??"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Description"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewSignUp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/nextBtn" />
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintTop_toBottomOf="@+id/cardView1"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textViewSignUp"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_regular"
-        android:text=" Sign Up"
-        android:textColor="@color/text_color"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textview32"
-        app:layout_constraintTop_toTopOf="@id/textview32" />
+        android:layout_marginBottom="104dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.80" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

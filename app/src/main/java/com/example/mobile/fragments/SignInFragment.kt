@@ -43,7 +43,6 @@ class SignInFragment : Fragment() {
                 val editor = sharedPref?.edit()
                 editor?.putString("token",t.token)
                 editor?.apply()
-                val tok=sharedPref?.getString("token","DefaultValue")
                 navController.navigate(R.id.action_signInFragment_to_homeFragment)
             }else{
                 Log.d("Error","From Observer")

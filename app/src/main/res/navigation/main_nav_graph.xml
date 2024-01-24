@@ -53,5 +53,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.mobile.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addTodo"
+            app:destination="@id/addTodo" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTodo"
+        android:name="com.example.mobile.fragments.AddTodo"
+        android:label="fragment_add_todo"
+        tools:layout="@layout/fragment_add_todo" />
 </navigation>

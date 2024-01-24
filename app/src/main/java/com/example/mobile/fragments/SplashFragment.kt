@@ -1,5 +1,6 @@
 package com.example.mobile.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -33,7 +34,13 @@ class SplashFragment : Fragment() {
 
         val handler = Handler(Looper.myLooper()!!)
         handler.postDelayed({
-            navController.navigate(R.id.action_splashFragment_to_signInFragment)
+            val sharedPref = context?.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE)
+            val token = sharedPref?.getString("token","")
+            if(token==null || token==""){
+                navController.navigate(R.id.action_splashFragment_to_signInFragment)
+            }else{
+                navController.navigate(R.id.action_splashFragment_to_homeFragment)
+            }
         }, 2000)
     }
 

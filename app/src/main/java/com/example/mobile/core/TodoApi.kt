@@ -1,5 +1,6 @@
 package com.example.mobile.core
 
+import com.example.mobile.core.dto.CreateTodoDto
 import com.example.mobile.core.dto.UpdateTodo
 import com.example.mobile.core.models.Todo
 import retrofit2.Call
@@ -20,7 +21,7 @@ interface TodoApi {
     fun getTodoById(@Path("id") id : Int): Call<Todo>
 
     @POST("/todo/add")
-    fun createTodo(): Call<Todo>
+    fun createTodo(@Body todo: CreateTodoDto): Call<Todo>
 
     @DELETE("/todo/{id}")
     fun deleteTodo(@Path("id") id : Int): Call<Void>
