@@ -1,6 +1,7 @@
 # Kotlin MVVM ToDo App 
 
-This is a simple ToDo application built using the MVVM architecture pattern in Kotlin, with Firebase for user authentication.
+This is a simple ToDo application built using the MVVM architecture pattern in Kotlin, with an external API for data storage.
+
 
 ## Table of Contents
 
@@ -27,7 +28,8 @@ The application follows the MVVM (Model-View-ViewModel) architecture pattern:
 
 ## Getting Started
 
-### Configuration
-
+Models: Une classe qui represente les données: Todo.kt
+DTO: permettent de structurer les données lors des opérations d'authentification et de gestion des tâches: AuthentificationDTO , CreateTodoDTO, LoginDTO, UpdateDTO
+ViewModels: responsables de la logique métier et de la gestion des données pour les fragments, contenient des méthodes pour récupérer la liste des todos depuis l'API, ajouter une nouvelle todo etc...
 
 ### screenshots
