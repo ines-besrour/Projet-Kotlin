@@ -28,7 +28,7 @@ The application follows the MVVM (Model-View-ViewModel) architecture pattern:
 
 ## Getting Started
 
-- **Models:** "A class representing the data: Todo.kt
+- **Models:** A class representing the data: Todo.kt
 - **DTO:** Allow structuring data during authentication and task management operations: AuthentificationDTO, CreateTodoDTO, LoginDTO, UpdateDTO
 - **ViewModels:** Responsible for business logic and data management for fragments, contain methods to retrieve the list of todos from the API, add a new todo, etc...
 
