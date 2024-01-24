@@ -30,6 +30,11 @@ class SplashFragment : Fragment() {
 
         init(view)
 
+
+        val handler = Handler(Looper.myLooper()!!)
+        handler.postDelayed({
+            navController.navigate(R.id.action_splashFragment_to_signInFragment)
+        }, 2000)
     }
 
     private fun init(view: View) {
