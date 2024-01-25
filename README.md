@@ -33,14 +33,15 @@ The application follows the MVVM (Model-View-ViewModel) architecture pattern:
 - **ViewModels:** Responsible for business logic and data management for fragments, contain methods to retrieve the list of todos from the API, add a new todo, etc...
 
 ### screenshots
-**Splash Screen:**
-
-![splash screen](https://github.com/ines-besrour/Projet-Kotlin/assets/83375466/b4a1aa47-1a1e-4ef9-a660-a44557b8df45)
 
 
-**Sign In:**
+![Splash Screen](https://github.com/ines-besrour/Projet-Kotlin/assets/83375466/b4a1aa47-1a1e-4ef9-a660-a44557b8df45) ![sign in](https://github.com/ines-besrour/Projet-Kotlin/assets/83375466/06772753-eac8-4f23-8374-266d10ec8550)
 
-![sign in](https://github.com/ines-besrour/Projet-Kotlin/assets/83375466/06772753-eac8-4f23-8374-266d10ec8550)
+
+
+
+
+![sign in]()
 
 
 **Sign Up:**
