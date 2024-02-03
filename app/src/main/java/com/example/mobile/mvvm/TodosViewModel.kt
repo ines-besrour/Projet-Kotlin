@@ -5,9 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobile.core.RetrofitClient
+import com.example.mobile.core.SharedPreferencesManager
 import com.example.mobile.core.dto.CreateTodoDto
 import com.example.mobile.core.dto.UpdateTodo
 import com.example.mobile.core.models.Todo
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,14 +30,17 @@ class TodosViewModel: ViewModel() {
                         error.value=null
                         addedTodo.value = response.body()
                     }else{
-                        Log.d("Error add",response.errorBody()!!.string())
-                        addTodoError(response.errorBody().toString())
+                        val errorBody = response.errorBody()?.string()
+
+                        val gson = Gson()
+                        val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
+                        addTodoError(jsonError.get("message").asString)
                     }
 
                 }
 
                 override fun onFailure(call: Call<Todo>, t: Throwable) {
-                    addTodoError(t.message.toString())
+                    addTodoError("An error Occured")
                     Log.d("Add Todo Failed",t.message.toString())
                 }
             })
@@ -48,12 +54,15 @@ class TodosViewModel: ViewModel() {
                         error.value=null
                         updateTodo.value = true
                     }else{
-                        updateError(response.errorBody().toString())
+                        val errorBody = response.errorBody()?.string()
+                        val gson = Gson()
+                        val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
+                        updateError(jsonError.get("message").asString)
                     }
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
-                    updateError(t.message.toString())
+                    addTodoError("An error Occured")
                     Log.d("Add Todo Failed",t.message.toString())
                 }
             })

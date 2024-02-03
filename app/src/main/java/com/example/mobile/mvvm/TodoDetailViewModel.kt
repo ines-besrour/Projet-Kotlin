@@ -8,6 +8,8 @@ import com.example.mobile.core.RetrofitClient
 import com.example.mobile.core.dto.CreateTodoDto
 import com.example.mobile.core.dto.UpdateTodo
 import com.example.mobile.core.models.Todo
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,16 +25,21 @@ class TodoDetailViewModel:ViewModel() {
             .enqueue(object : Callback<Todo> {
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
+                        Log.d("GET TODO",response.body().toString())
                         todo.value = response.body()
                         error.value=null
                     }else{
-                        getTodoError(response.errorBody().toString())
+                        val errorBody = response.errorBody()?.string()
+
+                        val gson = Gson()
+                        val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
+                        getTodoError(jsonError.get("message").asString)
                     }
 
                 }
 
                 override fun onFailure(call: Call<Todo>, t: Throwable) {
-                    getTodoError(t.message.toString())
+                    getTodoError("An Error Occured")
                     Log.d("Add Todo Failed",t.message.toString())
                 }
             })
@@ -46,13 +53,16 @@ class TodoDetailViewModel:ViewModel() {
                         deletedTodo.value = true
                         error.value=null
                     }else{
-                        deleteError(response.errorBody().toString())
+                        val errorBody = response.errorBody()?.string()
+                        val gson = Gson()
+                        val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
+                        deleteError(jsonError.get("message").asString)
                     }
 
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
-                    deleteError(t.message.toString())
+                    deleteError("An Error Occured")
                     Log.d("Add Todo Failed",t.message.toString())
                 }
             })

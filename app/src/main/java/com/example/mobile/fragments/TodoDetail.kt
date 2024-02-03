@@ -48,9 +48,9 @@ class TodoDetail : Fragment() {
         todoDetailViewModel.getTodo().observe(this.viewLifecycleOwner){
             if(it != null){
                 todo=it
-                // TODO :: Add here the binding between the data and view
-                // Example :
-                // binding.todoName = it.name
+                 binding.todoName.text = it.name
+                binding.description.text = it.description
+                binding.statut.text=it.statut
             }
             hideLoading()
         }
@@ -91,19 +91,21 @@ class TodoDetail : Fragment() {
     }
 
     private fun showLoading(){
-        // TODO :: ADD here the visibility toggling to hide content and show loading
         binding.apply {
             imageView5.visibility=View.INVISIBLE
-            textView2.visibility=View.INVISIBLE
+            cardView1.visibility=View.INVISIBLE
+            cardView2.visibility=View.INVISIBLE
+            cardView7.visibility=View.INVISIBLE
             progressBar2.visibility=View.VISIBLE
         }
     }
 
     private fun hideLoading(){
-        // TODO :: ADD here the visibility toggling to hide loading and show content
         binding.apply {
             imageView5.visibility=View.VISIBLE
-            textView2.visibility=View.VISIBLE
+            cardView1.visibility=View.VISIBLE
+            cardView2.visibility=View.VISIBLE
+            cardView7.visibility=View.VISIBLE
             progressBar2.visibility=View.INVISIBLE
         }
 
