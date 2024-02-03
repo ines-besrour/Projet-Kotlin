@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.example.mobile.core.RetrofitClient
 import com.example.mobile.core.dto.AuthenticateTodo
 import com.example.mobile.core.dto.LoginDto
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,11 +27,15 @@ class AuthViewModel : ViewModel() {
                     authDetails.value = response.body()
                     error.value=null
                 }else{
-                    loginError(response.errorBody().toString())
+                    val errorBody = response.errorBody()?.string()
+
+                    val gson = Gson()
+                    val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
+                    loginError(jsonError.get("message").asString)
                 }
             }
             override fun onFailure(call: Call<LoginDto>, t: Throwable) {
-                loginError(t.message.toString())
+                loginError("An Error Occured")
                 Log.d("Login Problem",t.message.toString())
             }
         })
@@ -43,12 +49,16 @@ class AuthViewModel : ViewModel() {
                     isSignedUpSuccessfully.value=true
                     error.value=null
                 }else{
-                    signUpError(response.errorBody().toString())
+                    val errorBody = response.errorBody()?.string()
+
+                    val gson = Gson()
+                    val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
+                    signUpError(jsonError.get("message").asString)
                 }
 
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                signUpError(t.message.toString())
+                signUpError("An Error Occured")
                 Log.d("Sign Up Problem",t.message.toString())
             }
         })

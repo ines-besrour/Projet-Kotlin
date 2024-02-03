@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobile.core.RetrofitClient
 import com.example.mobile.core.models.Todo
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,16 +28,19 @@ class HomeViewModel : ViewModel() {
                     listTodos.value = response.body()
                     error.value=null
                 }else{
+                    val errorBody = response.errorBody()?.string()
+
+                    val gson = Gson()
+                    val jsonError = gson.fromJson(errorBody, JsonObject::class.java)
                     listTodos.value = null
-                    Log.d("Home Fragment",response.errorBody().toString())
-                    error.value=response.errorBody().toString()
+                    error.value=jsonError.get("message").asString
                 }
 
             }
 
             override fun onFailure(call: Call<List<Todo>>, t: Throwable) {
                 listTodos.value = null
-                error.value=t.toString()
+                error.value="An Error Occured"
                 Log.d("Getting Todos Exception",t.message.toString())
             }
         })
